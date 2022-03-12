@@ -78,7 +78,7 @@ export default {
   generate: {
     dir: "docs"
   },
-  router: {
-    base: "/Syllabus-proto/"
-  }
+  // router: {
+  //   base: "/Syllabus-proto/"
+  // }
 }

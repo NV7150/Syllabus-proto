@@ -16,6 +16,21 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <v-btn
+      fab
+      dark
+      big
+      class="button-filter blue darken-2"
+      @click="() => {controlMenu(true)}"
+    >
+      <v-icon>mdi-filter</v-icon>
+    </v-btn>
+
+    <SearchNav
+      :right-drawer="showMenu"
+      @window="controlMenu"
+    />
   </v-container>
 </template>
 
@@ -24,8 +39,9 @@ import {Component, Vue} from "nuxt-property-decorator";
 import {get_order, parseOrder} from "./Tools"
 import {Subject} from "~/pages/Types";
 import SyllabusCard from "~/components/SyllabusCard/SyllabusCard.vue";
+import SearchNav from "~/components/Navigation/SearchNav.vue";
 @Component({
-  components: {SyllabusCard}
+  components: {SearchNav, SyllabusCard}
 })
 export default class Index extends Vue{
   // 時限->曜日
@@ -33,6 +49,12 @@ export default class Index extends Vue{
     subjects: Subject[]
   }[][]
   syllabuses: Subject[] = [];
+
+  showMenu: boolean = false;
+
+  controlMenu(newVal:boolean){
+    this.showMenu = newVal;
+  }
 
   created(){
     this.syllabuses = []
@@ -91,7 +113,6 @@ export default class Index extends Vue{
         this.showingSyllabuses[i].push({subjects: []})
       }
     }
-    console.log(this.showingSyllabuses)
 
     for(const i in syllabuses){
       const syllabus = syllabuses[i];
@@ -99,7 +120,6 @@ export default class Index extends Vue{
 
       if(orders[0] == -1 || orders[1] == -1)
         continue;
-      console.log(orders)
 
       this.showingSyllabuses[orders[1]][orders[0]].subjects.push(syllabus);
     }
@@ -110,3 +130,11 @@ export default class Index extends Vue{
   }
 }
 </script>
+
+<style scoped>
+.button-filter{
+  position: fixed;
+  bottom: 3vh;
+  left: 3vw;
+}
+</style>

@@ -18,24 +18,29 @@
         <Nuxt />
       </v-container>
     </v-main>
-    <v-navigation-drawer
-      v-model="rightDrawer"
-      temporary
-      fixed
-      right
-    >
-      <v-list>
+    <SearchNav
+      :right-drawer="rightDrawer"
+    />
+<!--    <v-navigation-drawer-->
+<!--      v-model="rightDrawer"-->
+<!--      temporary-->
+<!--      fixed-->
+<!--      right-->
+<!--    >-->
+<!--      <v-list>-->
 
-      </v-list>
-    </v-navigation-drawer>
+<!--      </v-list>-->
+<!--    </v-navigation-drawer>-->
   </v-app>
 </template>
 
 <script lang="ts">
 
 import {Component, Vue} from "nuxt-property-decorator";
-
-@Component
+import SearchNav from "~/components/Navigation/SearchNav.vue";
+@Component({
+  components: {SearchNav}
+})
 export default class DefaultLayout extends Vue{
   rightDrawer: boolean = false;
 }
