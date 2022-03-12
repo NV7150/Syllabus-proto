@@ -79,6 +79,6 @@ export default {
     dir: "docs"
   },
   router: {
-    base: '/Syllabus-proto/'
+    base: "/Syllabus-proto/"
   }
 }
