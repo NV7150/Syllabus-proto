@@ -148,9 +148,18 @@ export default class Index extends Vue{
   }
 
   processAvailable(){
+    const useOther = this.availableFields.indexOf(Fields.OTHER) >= 0;
+    const checkField = (f: string) => {
+      if(useOther && Object.values(Fields).indexOf(f) === -1)
+        return true
+      return this.availableFields.indexOf(f) >= 0;
+    }
+
     let syllabuses: Subject[] = this.syllabuses;
     console.log(syllabuses[0].field in ["研究プロジェクト科目"])
-    syllabuses = syllabuses.filter(syllabus => this.availableFields.indexOf(syllabus.field) >= 0);
+    syllabuses = syllabuses.filter(syllabus =>
+      checkField(syllabus.field)
+    );
     this.showSyllabuses(syllabuses);
   }
 }

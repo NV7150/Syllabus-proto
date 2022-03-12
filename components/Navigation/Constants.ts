@@ -1,4 +1,4 @@
-export const Fields = {
+export const Fields: {[key:string]: string} = {
   GENERAL : "総合講座科目",
   LANG_COM : "言語コミュニケーション科目",
   SHARED : "共通科目",
@@ -10,11 +10,11 @@ export const Fields = {
   INFO_ENV : "環境情報系",
   RESEARCH: "研究プロジェクト科目",
   OTHER : "other"
-} as const;
+};
 
-export type Fields = typeof Fields[keyof typeof Fields];
+// export type Fields = typeof Fields[keyof typeof Fields];
 
-export const FieldTexts: {name: string,field: Fields, iconName: string}[] = [
+export const FieldTexts: {name: string,field: string, iconName: string}[] = [
   {name: "総合講座科目", field: Fields.GENERAL, iconName: require("@/assets/icons/kouza.svg"),},
   {name: "言語コミュニケーション科目", field:Fields.LANG_COM, iconName: require("@/assets/icons/lang.svg")},
   {name:　"基盤-共通科目", field: Fields.SHARED, iconName: require("@/assets/icons/base.svg")},
