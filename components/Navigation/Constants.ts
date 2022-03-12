@@ -14,19 +14,25 @@ export const Fields: {[key:string]: string} = {
 
 // export type Fields = typeof Fields[keyof typeof Fields];
 
-export const FieldTexts: {name: string,field: string, iconName: string}[] = [
-  {name: "総合講座科目", field: Fields.GENERAL, iconName: require("@/assets/icons/kouza.svg"),},
-  {name: "言語コミュニケーション科目", field:Fields.LANG_COM, iconName: require("@/assets/icons/lang.svg")},
-  {name:　"基盤-共通科目", field: Fields.SHARED, iconName: require("@/assets/icons/base.svg")},
-  {name: "データサイエンス１", field: Fields.DS1, iconName: require("@/assets/icons/ds1.svg")},
-  {name: "データサイエンス２", field: Fields.DS2, iconName: require("@/assets/icons/ds2.svg")},
-  {name: "情報技術基礎科目", field: Fields.IT_BASE, iconName: require("@/assets/icons/programms.svg")},
-  {name: "ウェルネス科目", field: Fields.WELLNESS, iconName: require("@/assets/icons/wellness.svg")},
-  {name: "先端-環境情報系", field: Fields.INFO_ENV, iconName: require("@/assets/icons/kankyojouhou.svg")},
-  {name: "先端-総合政策系", field: Fields.POLICY_MAN, iconName: require("@/assets/icons/sougouseisaku.svg")},
-  {name: "研究プロジェクト科目", field: Fields.RESEARCH, iconName: require("@/assets/icons/kenkyu.svg")},
-  {name: "その他", field: Fields.OTHER, iconName: require("@/assets/icons/others.svg")}
+export const FieldTexts: Selection[] = [
+  {name: "総合講座科目", key: Fields.GENERAL, iconName: require("@/assets/icons/kouza.svg"),},
+  {name: "言語コミュニケーション科目", key:Fields.LANG_COM, iconName: require("@/assets/icons/lang.svg")},
+  {name:　"基盤-共通科目", key: Fields.SHARED, iconName: require("@/assets/icons/base.svg")},
+  {name: "データサイエンス１", key: Fields.DS1, iconName: require("@/assets/icons/ds1.svg")},
+  {name: "データサイエンス２", key: Fields.DS2, iconName: require("@/assets/icons/ds2.svg")},
+  {name: "情報技術基礎科目", key: Fields.IT_BASE, iconName: require("@/assets/icons/programms.svg")},
+  {name: "ウェルネス科目", key: Fields.WELLNESS, iconName: require("@/assets/icons/wellness.svg")},
+  {name: "先端-環境情報系", key: Fields.INFO_ENV, iconName: require("@/assets/icons/kankyojouhou.svg")},
+  {name: "先端-総合政策系", key: Fields.POLICY_MAN, iconName: require("@/assets/icons/sougouseisaku.svg")},
+  {name: "研究プロジェクト科目", key: Fields.RESEARCH, iconName: require("@/assets/icons/kenkyu.svg")},
+  {name: "その他", key: Fields.OTHER, iconName: require("@/assets/icons/others.svg")}
 ]
+
+export interface Selection{
+  name: string;
+  key: string;
+  iconName: string;
+}
 
 export const Method: {[key: string]: string} = {
   OFF_LINE: "対面",
@@ -34,8 +40,21 @@ export const Method: {[key: string]: string} = {
   ON_DEMAND: "オンライン（オンデマンド）"
 }
 
-export const MethodTexts: {name: string, method: string, iconName: string}[] = [
-  {name: "対面", method: Method.OFF_LINE, iconName: require("@/assets/icons/oncumpus.svg")},
-  {name: "オンライン", method: Method.LIVE, iconName: require("@/assets/icons/online.svg")},
-  {name: "オンデマンド", method: Method.ON_DEMAND, iconName: require("@/assets/icons/ondemand.svg")}
+export const MethodTexts: Selection[] = [
+  {name: "対面", key: Method.OFF_LINE, iconName: require("@/assets/icons/oncumpus.svg")},
+  {name: "オンライン", key: Method.LIVE, iconName: require("@/assets/icons/online.svg")},
+  {name: "オンデマンド", key: Method.ON_DEMAND, iconName: require("@/assets/icons/ondemand.svg")}
+]
+
+
+export const Term: {[key: string]: string} = {
+  FULL: "通期",
+  UPPER: "前半",
+  LOWER: "後半"
+}
+
+export const TermTexts: Selection[] = [
+  {name: "通期", key: Term.FULL, iconName: require("@/assets/icons/tuki.svg")},
+  {name: "前半", key: Term.UPPER, iconName: require("@/assets/icons/zenhan.svg")},
+  {name: "後半", key: Term.LOWER, iconName: require("@/assets/icons/kouhan.svg")}
 ]

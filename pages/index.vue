@@ -31,8 +31,10 @@
       :right-drawer="showMenu"
       :init-fields="availableFields"
       :init-methods="availableMethods"
+      :init-terms="availableTerms"
       :field-updated="fieldUpdated"
       :method-updated="methodUpdated"
+      :term-updated="termUpdated"
       @window="controlMenu"
     />
   </v-container>
@@ -44,7 +46,7 @@ import {get_order, parseOrder} from "./Tools"
 import {Subject} from "~/pages/Types";
 import SyllabusCard from "~/components/SyllabusCard/SyllabusCard.vue";
 import SearchNav from "~/components/Navigation/SearchNav.vue";
-import {Fields, Method} from "~/components/Navigation/Constants";
+import {Fields, Method, Term} from "~/components/Navigation/Constants";
 @Component({
   components: {SearchNav, SyllabusCard}
 })
@@ -71,6 +73,12 @@ export default class Index extends Vue{
     Method.LIVE,
     Method.ON_DEMAND,
     Method.OFF_LINE
+  ]
+
+  availableTerms: string[] = [
+    Term.FULL,
+    Term.UPPER,
+    Term.LOWER
   ]
 
   controlMenu(newVal:boolean){
@@ -160,6 +168,11 @@ export default class Index extends Vue{
     this.processAvailable();
   }
 
+  termUpdated(terms: string[]){
+    this.availableTerms = terms;
+    this.processAvailable();
+  }
+
 
   processAvailable(){
     // fields
@@ -178,6 +191,9 @@ export default class Index extends Vue{
 
     // method
     syllabuses = syllabuses.filter(syllabus => this.availableMethods.indexOf(syllabus.method) >= 0);
+
+    //term
+    syllabuses = syllabuses.filter(syllabuses => this.availableTerms.indexOf(syllabuses.term) >= 0);
 
     this.showSyllabuses(syllabuses);
   }
