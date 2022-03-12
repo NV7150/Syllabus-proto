@@ -1,11 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
 
-const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
-  router: {
-    base: '/Syllabus-proto/'
-  }
-} : {}
-
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -84,5 +78,7 @@ export default {
   generate: {
     dir: "docs"
   },
-  ...routerBase
+  router: {
+    base: '/Syllabus-proto/'
+  }
 }
