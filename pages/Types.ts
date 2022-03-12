@@ -9,4 +9,6 @@ export interface Subject{
   staff: string[];
   method: string;
   lang: string;
+  day: string;
+  period: number;
 }

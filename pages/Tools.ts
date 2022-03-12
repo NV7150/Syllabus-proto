@@ -1,5 +1,5 @@
 
-export function get_order(day:string, period: string){
+export function get_order(day:string, period: number){
   let ord_1 = -1;
   switch (day){
     case "月": ord_1 = 0; break;
@@ -8,11 +8,7 @@ export function get_order(day:string, period: string){
     case "木": ord_1 = 3; break;
     case "金": ord_1 = 4; break;
   }
-  if(period === ""){
-    return [-1, -1]
-  }
-  const ord_2 = Number(period) - 1;
-  return [ord_1, ord_2]
+  return [ord_1, period - 1]
 }
 
 const dayOrders = ["月","火","水","木","金"]
