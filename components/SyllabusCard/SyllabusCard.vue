@@ -35,7 +35,7 @@ export default class SyllabusCard extends Vue{
   syllabus!: Subject;
 
   toSyllabus(){
-    window.open(this.syllabus.url, "_blank");
+    window.open(this.syllabus.url);
   }
 
   get fieldImg(){

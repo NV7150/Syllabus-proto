@@ -15,6 +15,18 @@ export function get_order(day:string, period: string){
   return [ord_1, ord_2]
 }
 
+const dayOrders = ["月","火","水","木","金"]
+export function parseOrder(ord1: number, ord2: number){
+  if(0 > ord1 || ord1 > 4){
+    return "?"
+  }
+  const day = dayOrders[ord1];
+  if(0 > ord2 || ord2 > 5){
+    return "?"
+  }
+  return day + (ord2 + 1) + "限";
+}
+
 const field_icons: {[key: string]: any} = {
   "総合講座科目":　require("@/assets/icons/kouza.svg"),
   "言語コミュニケーション科目": require("@/assets/icons/lang.svg"),

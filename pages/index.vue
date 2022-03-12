@@ -1,11 +1,18 @@
 <template>
   <v-container>
-    <v-row v-for="row in showingSyllabuses">
-      <v-col v-for="cols in row">
+    <v-row v-for="(row, i) in showingSyllabuses">
+      <v-col v-for="(cols, j) in row">
         <v-card class="pa-2">
-          <div v-for="col in cols.subjects">
-            <SyllabusCard class="ma-2" :syllabus="col" />
-          </div>
+          <v-container>
+             <v-row>
+               <v-col>{{order2str(i,j)}}</v-col>
+             </v-row>
+
+            <div v-for="col in cols.subjects">
+              <SyllabusCard class="ma-2" :syllabus="col" />
+            </div>
+
+          </v-container>
         </v-card>
       </v-col>
     </v-row>
@@ -14,7 +21,7 @@
 
 <script lang="ts">
 import {Component, Vue} from "nuxt-property-decorator";
-import {get_order} from "./Tools"
+import {get_order, parseOrder} from "./Tools"
 import {Subject} from "~/pages/Types";
 import SyllabusCard from "~/components/SyllabusCard/SyllabusCard.vue";
 @Component({
@@ -78,6 +85,10 @@ export default class Index extends Vue{
       this.showingSyllabuses[orders[1]][orders[0]].subjects.push(data);
       this.syllabuses.push(data)
     }
+  }
+
+  order2str(i: number, j: number){
+    return parseOrder(j, i);
   }
 }
 </script>
