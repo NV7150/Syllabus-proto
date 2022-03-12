@@ -1,3 +1,5 @@
+import {Fields} from "~/components/Navigation/Constants";
+
 export interface Subject{
   subject_name: string;
   term: string;

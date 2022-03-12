@@ -50,19 +50,20 @@ export default class SearchNav extends  Vue{
   @Prop({type: Boolean, required: true})
   rightDrawer!: boolean;
 
-  selectedField: Fields[] = [
-    Fields.GENERAL,
-    Fields.DS1,
-    Fields.DS2,
-    Fields.IT_BASE,
-    Fields.OTHER,
-    Fields.INFO_ENV,
-    Fields.POLICY_MAN,
-    Fields.SHARED
-  ];
+  @Prop({type: Array, required: true})
+  initFields!: string[];
+
+  @Prop({type: Function})
+  fieldUpdated!: (fields: string[]) => void;
+
+  selectedField: string[] = [];
+
+  mounted(){
+    this.selectedField = this.initFields;
+  }
 
   fieldSelected(){
-    console.log(this.selectedField)
+    this.fieldUpdated(this.selectedField);
   }
 
   get fields(){

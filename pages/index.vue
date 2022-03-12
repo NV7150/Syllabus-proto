@@ -29,6 +29,8 @@
 
     <SearchNav
       :right-drawer="showMenu"
+      :init-fields="availableFields"
+      :field-updated="fieldUpdated"
       @window="controlMenu"
     />
   </v-container>
@@ -40,6 +42,7 @@ import {get_order, parseOrder} from "./Tools"
 import {Subject} from "~/pages/Types";
 import SyllabusCard from "~/components/SyllabusCard/SyllabusCard.vue";
 import SearchNav from "~/components/Navigation/SearchNav.vue";
+import {Fields} from "~/components/Navigation/Constants";
 @Component({
   components: {SearchNav, SyllabusCard}
 })
@@ -51,6 +54,16 @@ export default class Index extends Vue{
   syllabuses: Subject[] = [];
 
   showMenu: boolean = false;
+
+  availableFields: string[] = [
+    Fields.GENERAL,
+    Fields.DS1,
+    Fields.DS2,
+    Fields.OTHER,
+    Fields.INFO_ENV,
+    Fields.POLICY_MAN,
+    Fields.SHARED
+  ];
 
   controlMenu(newVal:boolean){
     this.showMenu = newVal;
@@ -102,7 +115,7 @@ export default class Index extends Vue{
         this.syllabuses.push(data)
       }
     }
-    this.showSyllabuses(this.syllabuses);
+    this.processAvailable();
   }
 
   showSyllabuses(syllabuses: Subject[]){
@@ -127,6 +140,18 @@ export default class Index extends Vue{
 
   order2str(i: number, j: number){
     return parseOrder(j, i);
+  }
+
+  fieldUpdated(fields: string[]){
+    this.availableFields = fields;
+    this.processAvailable();
+  }
+
+  processAvailable(){
+    let syllabuses: Subject[] = this.syllabuses;
+    console.log(syllabuses[0].field in ["研究プロジェクト科目"])
+    syllabuses = syllabuses.filter(syllabus => this.availableFields.indexOf(syllabus.field) >= 0);
+    this.showSyllabuses(syllabuses);
   }
 }
 </script>
