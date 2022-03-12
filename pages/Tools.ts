@@ -66,3 +66,5 @@ export function termIcon(term: string){
     return field_icons["others"];
   return term_icons[term];
 }
+
+export const giga_icon = require("@/assets/icons/giga.svg")

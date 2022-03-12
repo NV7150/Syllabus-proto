@@ -13,11 +13,14 @@
         <v-col xl="2" lg="4">
           <v-img max-height="30px" max-width="30px" :src="fieldImg" />
         </v-col>
-        <v-col xl="2" lg="4" class="little_text">
+        <v-col xl="2" lg="4n">
           <v-img max-width="30px" max-height="30px" :src="methodImg" />
         </v-col>
-        <v-col xl="2" lg="4" class="little_text" v-if="syllabus.term !== '通期'">
+        <v-col xl="2" lg="4" v-if="syllabus.term !== '通期'">
           <v-img max-width="30px" max-height="30px" :src="termImg" />
+        </v-col>
+        <v-col xl="2" lg="4" v-if="syllabus.is_giga">
+          <v-img max-width="30px" max-height="30px" :src="gigaImg" />
         </v-col>
       </v-row>
     </v-container>
@@ -27,7 +30,7 @@
 <script lang="ts">
 import {Component, Prop, Vue} from "nuxt-property-decorator";
 import {Subject} from "@/pages/Types"
-import {fieldIcon, methodIcon, termIcon} from "~/pages/Tools";
+import {fieldIcon, giga_icon, methodIcon, termIcon} from "~/pages/Tools";
 
 @Component
 export default class SyllabusCard extends Vue{
@@ -48,6 +51,10 @@ export default class SyllabusCard extends Vue{
 
   get termImg(){
     return termIcon(this.syllabus.term);
+  }
+
+  get gigaImg(){
+    return giga_icon;
   }
 
   get teachers(){
