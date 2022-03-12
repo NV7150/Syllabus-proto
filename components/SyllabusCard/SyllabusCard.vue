@@ -1,5 +1,5 @@
 <template>
-  <v-card hover @click="toSyllabus">
+  <v-card hover @click="toSyllabus" outlined>
     <v-container>
       <v-row>
         <v-col class="title_text">{{syllabus.subject_name}}</v-col>
