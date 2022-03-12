@@ -58,3 +58,13 @@ export const TermTexts: Selection[] = [
   {name: "前半", key: Term.UPPER, iconName: require("@/assets/icons/zenhan.svg")},
   {name: "後半", key: Term.LOWER, iconName: require("@/assets/icons/kouhan.svg")}
 ]
+
+export const Giga: {[key: string]: string} = {
+  GIGA: "GIGA",
+  N_GIGA: "NON_GIGA"
+}
+
+export const GigaTexts: Selection[] = [
+  {name: "GIGA対象", key: Giga.GIGA, iconName: require("@/assets/icons/giga.svg")},
+  {name: "GIGA非対象", key: Giga.N_GIGA, iconName: require("@/assets/icons/non-giga.svg")},
+]

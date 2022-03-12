@@ -32,9 +32,11 @@
       :init-fields="availableFields"
       :init-methods="availableMethods"
       :init-terms="availableTerms"
+      :init-giga="availableGigas"
       :field-updated="fieldUpdated"
       :method-updated="methodUpdated"
       :term-updated="termUpdated"
+      :giga-updated="gigaUpdated"
       @window="controlMenu"
     />
   </v-container>
@@ -46,7 +48,7 @@ import {get_order, parseOrder} from "./Tools"
 import {Subject} from "~/pages/Types";
 import SyllabusCard from "~/components/SyllabusCard/SyllabusCard.vue";
 import SearchNav from "~/components/Navigation/SearchNav.vue";
-import {Fields, Method, Term} from "~/components/Navigation/Constants";
+import {Fields, Giga, Method, Term} from "~/components/Navigation/Constants";
 @Component({
   components: {SearchNav, SyllabusCard}
 })
@@ -79,6 +81,11 @@ export default class Index extends Vue{
     Term.FULL,
     Term.UPPER,
     Term.LOWER
+  ]
+
+  availableGigas: string[] = [
+    Giga.GIGA,
+    Giga.N_GIGA
   ]
 
   controlMenu(newVal:boolean){
@@ -173,6 +180,11 @@ export default class Index extends Vue{
     this.processAvailable();
   }
 
+  gigaUpdated(gigas: string[]){
+    this.availableGigas = gigas;
+    this.processAvailable();
+  }
+
 
   processAvailable(){
     // fields
@@ -194,6 +206,19 @@ export default class Index extends Vue{
 
     //term
     syllabuses = syllabuses.filter(syllabuses => this.availableTerms.indexOf(syllabuses.term) >= 0);
+
+    //giga
+    syllabuses = syllabuses.filter(
+      syllabus => {
+        if(this.availableGigas.indexOf(Giga.GIGA) >= 0 && syllabus.is_giga){
+          return true;
+        }
+        if(this.availableGigas.indexOf(Giga.N_GIGA) >= 0 && !syllabus.is_giga){
+          return true;
+        }
+        return false;
+      }
+    )
 
     this.showSyllabuses(syllabuses);
   }

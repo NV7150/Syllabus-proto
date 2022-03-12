@@ -31,13 +31,20 @@
         :callback="termUpdated"
         :initials="initTerms"
       />
+
+      <Selections
+        title="GIGA対象"
+        :selections="gigas"
+        :callback="gigaUpdated"
+        :initials="initGiga"
+      />
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script lang="ts">
 import {Component, Prop, Vue} from "nuxt-property-decorator";
-import {Fields, FieldTexts, MethodTexts, TermTexts} from "~/components/Navigation/Constants";
+import {Fields, FieldTexts, GigaTexts, MethodTexts, TermTexts} from "~/components/Navigation/Constants";
 import Selections from "~/components/Navigation/Selections.vue";
 @Component({
   components: {Selections}
@@ -55,6 +62,9 @@ export default class SearchNav extends  Vue{
   @Prop({type: Array, required: true})
   initTerms!: string[];
 
+  @Prop({type: Array, required: true})
+  initGiga!: string[];
+
   @Prop({type: Function})
   fieldUpdated!: (fields: string[]) => void;
 
@@ -64,14 +74,8 @@ export default class SearchNav extends  Vue{
   @Prop({type: Function})
   termUpdated!: (terms: string[]) => void;
 
-  selectedField: string[] = [];
-  selectedMethods: string[] = [];
-  selectedTerms: string[] = [];
-
-  mounted(){
-    this.selectedField = this.initFields;
-    this.selectedMethods = this.initMethods;
-  }
+  @Prop({type: Function})
+  gigaUpdated!: (giga: string[]) => void;
 
   get fields(){
     return FieldTexts;
@@ -83,6 +87,10 @@ export default class SearchNav extends  Vue{
 
   get terms(){
     return TermTexts;
+  }
+
+  get gigas(){
+    return GigaTexts;
   }
 
   get opened(){
