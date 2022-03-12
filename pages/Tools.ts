@@ -17,7 +17,7 @@ export function parseOrder(ord1: number, ord2: number){
     return "?"
   }
   const day = dayOrders[ord1];
-  if(0 > ord2 || ord2 > 5){
+  if(0 > ord2 || ord2 > 6){
     return "?"
   }
   return day + (ord2 + 1) + "限";

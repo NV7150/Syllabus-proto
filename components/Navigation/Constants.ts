@@ -27,3 +27,15 @@ export const FieldTexts: {name: string,field: string, iconName: string}[] = [
   {name: "研究プロジェクト科目", field: Fields.RESEARCH, iconName: require("@/assets/icons/kenkyu.svg")},
   {name: "その他", field: Fields.OTHER, iconName: require("@/assets/icons/others.svg")}
 ]
+
+export const Method: {[key: string]: string} = {
+  OFF_LINE: "対面",
+  LIVE: "オンライン（ライブ）",
+  ON_DEMAND: "オンライン（オンデマンド）"
+}
+
+export const MethodTexts: {name: string, method: string, iconName: string}[] = [
+  {name: "対面", method: Method.OFF_LINE, iconName: require("@/assets/icons/oncumpus.svg")},
+  {name: "オンライン", method: Method.LIVE, iconName: require("@/assets/icons/online.svg")},
+  {name: "オンデマンド", method: Method.ON_DEMAND, iconName: require("@/assets/icons/ondemand.svg")}
+]

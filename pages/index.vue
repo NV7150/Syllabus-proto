@@ -30,7 +30,9 @@
     <SearchNav
       :right-drawer="showMenu"
       :init-fields="availableFields"
+      :init-methods="availableMethods"
       :field-updated="fieldUpdated"
+      :method-updated="methodUpdated"
       @window="controlMenu"
     />
   </v-container>
@@ -42,7 +44,7 @@ import {get_order, parseOrder} from "./Tools"
 import {Subject} from "~/pages/Types";
 import SyllabusCard from "~/components/SyllabusCard/SyllabusCard.vue";
 import SearchNav from "~/components/Navigation/SearchNav.vue";
-import {Fields} from "~/components/Navigation/Constants";
+import {Fields, Method} from "~/components/Navigation/Constants";
 @Component({
   components: {SearchNav, SyllabusCard}
 })
@@ -64,6 +66,12 @@ export default class Index extends Vue{
     Fields.POLICY_MAN,
     Fields.SHARED
   ];
+
+  availableMethods: string[] = [
+    Method.LIVE,
+    Method.ON_DEMAND,
+    Method.OFF_LINE
+  ]
 
   controlMenu(newVal:boolean){
     this.showMenu = newVal;
@@ -147,7 +155,14 @@ export default class Index extends Vue{
     this.processAvailable();
   }
 
+  methodUpdated(methods: string[]){
+    this.availableMethods = methods;
+    this.processAvailable();
+  }
+
+
   processAvailable(){
+    // fields
     const useOther = this.availableFields.indexOf(Fields.OTHER) >= 0;
     const checkField = (f: string) => {
       if(useOther && Object.values(Fields).indexOf(f) === -1)
@@ -156,10 +171,14 @@ export default class Index extends Vue{
     }
 
     let syllabuses: Subject[] = this.syllabuses;
-    console.log(syllabuses[0].field in ["研究プロジェクト科目"])
+
     syllabuses = syllabuses.filter(syllabus =>
       checkField(syllabus.field)
     );
+
+    // method
+    syllabuses = syllabuses.filter(syllabus => this.availableMethods.indexOf(syllabus.method) >= 0);
+
     this.showSyllabuses(syllabuses);
   }
 }
