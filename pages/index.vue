@@ -43,41 +43,45 @@
         </v-tab-item>
       </v-tabs-items>
 
-      <!-- 絞り込み用-->
-      <v-btn
-        fab
-        dark
-        big
-        class="button-filter blue darken-2"
-        @click="() => {controlMenu(true)}"
-      >
-        <v-icon>mdi-filter</v-icon>
-      </v-btn>
 
-      <SearchNav
-        :right-drawer="showMenu"
-        :init-fields="availableFields"
-        :init-methods="availableMethods"
-        :init-terms="availableTerms"
-        :init-giga="availableGigas"
-        :field-updated="fieldUpdated"
-        :method-updated="methodUpdated"
-        :term-updated="termUpdated"
-        :giga-updated="gigaUpdated"
-        @window="controlMenu"
-      />
     </v-container>
+    <!-- 絞り込み用-->
+    <v-btn
+      fab
+      dark
+      big
+      class="button-filter blue darken-2"
+      @click="() => {controlMenu(true)}"
+    >
+      <v-icon>mdi-filter</v-icon>
+    </v-btn>
 
-    <v-footer fixed v-show="$vuetify.breakpoint.mobile">
-      <v-tabs v-model="tab" grow >
-      <v-tab
-        v-for="day in days"
-        :key="day"
-      >
-        {{day}}
-      </v-tab>
-    </v-tabs>
-    </v-footer>
+    <SearchNav
+      :right-drawer="showMenu"
+      :init-fields="availableFields"
+      :init-methods="availableMethods"
+      :init-terms="availableTerms"
+      :init-giga="availableGigas"
+      :field-updated="fieldUpdated"
+      :method-updated="methodUpdated"
+      :term-updated="termUpdated"
+      :giga-updated="gigaUpdated"
+      @window="controlMenu"
+    />
+
+<!--    <v-footer fixed v-show="$vuetify.breakpoint.mobile">-->
+<!--      <v-card width="100%" flat>-->
+        <v-tabs grow v-model="tab" centered class="foot-tab" v-show="$vuetify.breakpoint.mobile">
+          <v-tab
+            v-for="day in days"
+            :key="day"
+            width="10px"
+          >
+            {{day}}
+          </v-tab>
+        </v-tabs>
+<!--      </v-card>-->
+<!--    </v-footer>-->
   </div>
 </template>
 
@@ -275,9 +279,17 @@ export default class Index extends Vue{
 </script>
 
 <style scoped>
-.button-filter{
+
+.button-filter {
   position: fixed;
-  bottom: 7vh;
+  bottom: 10vh;
   right: 3vw;
+}
+
+.foot-tab {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  right: 0;
 }
 </style>
