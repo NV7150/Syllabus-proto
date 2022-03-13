@@ -3,8 +3,15 @@
     v-model="opened"
     temporary
     fixed
-    width="30vw"
+    right
+    :width="$vuetify.breakpoint.mobile ? '100vw' : '30vw'"
   >
+    <v-toolbar>
+      絞り込み
+      <v-spacer></v-spacer>
+      <v-btn icon @click="() => {this.opened = false;}"> <v-icon>mdi-close</v-icon></v-btn>
+    </v-toolbar>
+
     <v-list
       nav
       dense

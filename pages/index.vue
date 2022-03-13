@@ -1,45 +1,84 @@
 <template>
-  <v-container>
-    <v-row v-for="(row, i) in showingSyllabuses">
-      <v-col v-for="(cols, j) in row">
-        <v-card class="pa-2">
-          <v-container>
-             <v-row>
-               <v-col>{{order2str(i,j)}}</v-col>
-             </v-row>
+  <div>
+    <v-container>
+      <!--PC画面用 -->
+      <v-row v-for="(row, i) in showingSyllabuses" v-show="!$vuetify.breakpoint.mobile">
+        <v-col v-for="(cols, j) in row">
+          <v-card class="pa-2">
+            <v-container>
+              <v-row>
+                <v-col>{{order2str(i,j)}}</v-col>
+              </v-row>
 
-            <div v-for="col in cols.subjects">
-              <SyllabusCard class="ma-2" :syllabus="col" />
-            </div>
+              <div v-for="(col, t) in cols.subjects" :key="t">
+                <SyllabusCard class="ma-2" :syllabus="col" />
+              </div>
 
-          </v-container>
-        </v-card>
-      </v-col>
-    </v-row>
+            </v-container>
+          </v-card>
+        </v-col>
+      </v-row>
 
-    <v-btn
-      fab
-      dark
-      big
-      class="button-filter blue darken-2"
-      @click="() => {controlMenu(true)}"
-    >
-      <v-icon>mdi-filter</v-icon>
-    </v-btn>
+      <!--スマホ画面用-->
 
-    <SearchNav
-      :right-drawer="showMenu"
-      :init-fields="availableFields"
-      :init-methods="availableMethods"
-      :init-terms="availableTerms"
-      :init-giga="availableGigas"
-      :field-updated="fieldUpdated"
-      :method-updated="methodUpdated"
-      :term-updated="termUpdated"
-      :giga-updated="gigaUpdated"
-      @window="controlMenu"
-    />
-  </v-container>
+      <v-tabs-items v-model="tab" v-show="$vuetify.breakpoint.mobile">
+        <v-tab-item
+          v-for="day in days"
+          :key="day"
+        >
+          <v-row v-for="(row, i) in showingSyllabuses">
+            <v-col>
+              <v-card>
+                <v-container>
+                  <v-row>
+                    <v-col>{{order2str(i, dayDict[day])}}</v-col>
+                  </v-row>
+                  <div v-for="(col, t) in row[dayDict[day]].subjects" :key="t">
+                    <SyllabusCard syllabus="ma-2" :syllabus="col" />
+                  </div>
+                </v-container>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-tab-item>
+      </v-tabs-items>
+
+      <!-- 絞り込み用-->
+      <v-btn
+        fab
+        dark
+        big
+        class="button-filter blue darken-2"
+        @click="() => {controlMenu(true)}"
+      >
+        <v-icon>mdi-filter</v-icon>
+      </v-btn>
+
+      <SearchNav
+        :right-drawer="showMenu"
+        :init-fields="availableFields"
+        :init-methods="availableMethods"
+        :init-terms="availableTerms"
+        :init-giga="availableGigas"
+        :field-updated="fieldUpdated"
+        :method-updated="methodUpdated"
+        :term-updated="termUpdated"
+        :giga-updated="gigaUpdated"
+        @window="controlMenu"
+      />
+    </v-container>
+
+    <v-footer fixed v-show="$vuetify.breakpoint.mobile">
+      <v-tabs v-model="tab" grow >
+      <v-tab
+        v-for="day in days"
+        :key="day"
+      >
+        {{day}}
+      </v-tab>
+    </v-tabs>
+    </v-footer>
+  </div>
 </template>
 
 <script lang="ts">
@@ -87,6 +126,16 @@ export default class Index extends Vue{
     Giga.GIGA,
     Giga.N_GIGA
   ]
+
+  days: string[] = ["月", "火", "水", "木", "金"]
+  dayDict: {[key: string]: number} = {
+    "月": 0,
+    "火": 1,
+    "水": 2,
+    "木": 3,
+    "金": 4
+  }
+  tab = this.days[0];
 
   controlMenu(newVal:boolean){
     this.showMenu = newVal;
@@ -228,7 +277,7 @@ export default class Index extends Vue{
 <style scoped>
 .button-filter{
   position: fixed;
-  bottom: 3vh;
-  left: 3vw;
+  bottom: 7vh;
+  right: 3vw;
 }
 </style>

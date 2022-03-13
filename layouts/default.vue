@@ -3,6 +3,7 @@
     <v-app-bar
       fixed
       app
+      hide-on-scroll
     >
       <v-list-item-title>科目検索.死ぬ.com</v-list-item-title>
     </v-app-bar>
