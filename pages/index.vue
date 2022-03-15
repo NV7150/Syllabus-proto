@@ -1,13 +1,13 @@
 <template>
   <div>
-    <v-container>
+    <v-container class="fill-height">
       <!--PC画面用 -->
-      <v-row v-for="(row, i) in showingSyllabuses" v-show="!$vuetify.breakpoint.mobile">
+      <v-row v-for="(row, i) in showingSyllabuses" class="fill-height" v-show="!$vuetify.breakpoint.mobile">
         <v-col v-for="(cols, j) in row">
-          <v-card class="pa-2">
+          <v-card class="pa-2 fill-height">
             <v-container>
-              <v-row>
-                <v-col>{{order2str(i,j)}}</v-col>
+              <v-row class="mb-2 pa-2">
+                <v-col class="text-h5">{{order2str(i,j)}}</v-col>
               </v-row>
 
               <div v-for="(col, t) in cols.subjects" :key="t">
@@ -291,5 +291,9 @@ export default class Index extends Vue{
   bottom: 0;
   width: 100%;
   right: 0;
+}
+
+.column {
+  height: 100%;
 }
 </style>
