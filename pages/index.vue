@@ -26,8 +26,8 @@
           v-for="day in days"
           :key="day"
         >
-          <v-row v-for="(row, i) in showingSyllabuses">
-            <v-col>
+          <v-row v-for="(row, i) in showingSyllabuses" class="row-filled">
+            <v-col cols="12">
               <v-card>
                 <v-container>
                   <v-row>
@@ -292,8 +292,8 @@ export default class Index extends Vue{
   width: 100%;
   right: 0;
 }
-
-.column {
-  height: 100%;
+.row-filled{
+  width: 95vw;
 }
+
 </style>
