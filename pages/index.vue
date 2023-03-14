@@ -148,14 +148,14 @@ export default class Index extends Vue{
   created(){
     this.syllabuses = []
 
-    const file_raw = require("@/assets/result.json")
+    const file_raw = require("~/assets/result.json")
     for(const i in file_raw){
       const raw_data = file_raw[i]
 
       if(raw_data["schedules"].length < 1)
         continue;
 
-      if(raw_data["year"] !== 2022)
+      if(raw_data["year"] !== 2023)
         continue;
 
       const schedules = raw_data["schedules"];
@@ -249,16 +249,21 @@ export default class Index extends Vue{
     }
 
     let syllabuses: Subject[] = this.syllabuses;
+    console.log(syllabuses);
 
     syllabuses = syllabuses.filter(syllabus =>
       checkField(syllabus.field)
     );
 
+    console.log(syllabuses);
+
     // method
     syllabuses = syllabuses.filter(syllabus => this.availableMethods.indexOf(syllabus.method) >= 0);
+    console.log(syllabuses);
 
     //term
     syllabuses = syllabuses.filter(syllabuses => this.availableTerms.indexOf(syllabuses.term) >= 0);
+    console.log(syllabuses);
 
     //giga
     syllabuses = syllabuses.filter(
@@ -272,6 +277,7 @@ export default class Index extends Vue{
         return false;
       }
     )
+    console.log(syllabuses);
 
     this.showSyllabuses(syllabuses);
   }
