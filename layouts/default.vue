@@ -27,7 +27,6 @@
 </template>
 
 <script lang="ts">
-import { mapMutations } from "vuex";
 import { Component, Vue, Watch } from "nuxt-property-decorator";
 import SearchNav from "~/components/Navigation/SearchNav.vue";
 
