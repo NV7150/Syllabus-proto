@@ -11,7 +11,8 @@
               </v-row>
 
               <div v-for="(col, t) in cols.subjects" :key="t">
-                <SyllabusCard class="ma-2" :syllabus="col" />
+                <SyllabusCard class="ma-2" :syllabus="col" v-show="!listView"/>
+                <li class="li-subject py-1" @click="showModal(col)" v-show="listView">{{ col.subject_name }}</li>
               </div>
 
             </v-container>
@@ -31,10 +32,11 @@
               <v-card>
                 <v-container>
                   <v-row>
-                    <v-col>{{order2str(i, dayDict[day])}}</v-col>
+                    <v-col class="text-day-period my-3">{{order2str(i, dayDict[day])}}</v-col>
                   </v-row>
                   <div v-for="(col, t) in row[dayDict[day]].subjects" :key="t">
-                    <SyllabusCard syllabus="ma-2" :syllabus="col" />
+                    <SyllabusCard class="ma-2" :syllabus="col" v-show="!listView"/>
+                    <li class="li-subject py-1" @click="showModal(col)" v-show="listView">{{ col.subject_name }}</li>
                   </div>
                 </v-container>
               </v-card>
@@ -82,6 +84,9 @@
         </v-tabs>
 <!--      </v-card>-->
 <!--    </v-footer>-->
+    <modal name="syllabus-card-modal" :adaptive="true" class="card-modal">
+      <SyllabusCardModal :syllabus="selectedSubject" />
+    </modal>
   </div>
 </template>
 
@@ -90,10 +95,11 @@ import {Component, Vue} from "nuxt-property-decorator";
 import {get_order, parseOrder} from "./Tools"
 import {Subject} from "~/pages/Types";
 import SyllabusCard from "~/components/SyllabusCard/SyllabusCard.vue";
+import SyllabusCardModal from "~/components/SyllabusCardModal/SyllabusCardModal.vue";
 import SearchNav from "~/components/Navigation/SearchNav.vue";
 import {Fields, Giga, Method, Term} from "~/components/Navigation/Constants";
 @Component({
-  components: {SearchNav, SyllabusCard}
+  components: {SearchNav, SyllabusCard, SyllabusCardModal}
 })
 export default class Index extends Vue{
   // 時限->曜日
@@ -140,6 +146,12 @@ export default class Index extends Vue{
     "金": 4
   }
   tab = this.days[0];
+
+  selectedSubject: Subject = {} as Subject;
+
+  get listView() {
+    return this.$store.state.listView;
+  }
 
   controlMenu(newVal:boolean){
     this.showMenu = newVal;
@@ -281,6 +293,10 @@ export default class Index extends Vue{
 
     this.showSyllabuses(syllabuses);
   }
+  showModal(syllabus: Subject){
+    this.selectedSubject = syllabus;
+    this.$modal.show("syllabus-card-modal");
+  }
 }
 </script>
 
@@ -300,6 +316,22 @@ export default class Index extends Vue{
 }
 .row-filled{
   width: 95vw;
+}
+.li-subject {
+  list-style: none;
+  border-bottom: 1px solid #383838;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.li-subject:hover {
+  opacity: 0.8;
+}
+.text-day-period {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.card-modal >>> .vm--modal  {
+  background: #121212; /* 微妙にモーダルの四隅が白抜きされてしまうので色を合わせて修正 */
 }
 
 </style>

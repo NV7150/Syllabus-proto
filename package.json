@@ -11,15 +11,18 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "core-js": "^3.19.3",
-    "nuxt": "^2.15.8",
+    "nuxt": "2.16.2",
     "nuxt-property-decorator": "^2.9.1",
     "vue": "^2.6.14",
+    "vue-js-modal": "^2.0.1",
     "vue-server-renderer": "^2.6.14",
     "vue-template-compiler": "^2.6.14",
     "vuetify": "^2.6.1",
+    "vuex": "^3.6.2",
     "webpack": "^4.46.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@nuxt/types": "^2.15.8",
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/vuetify": "^1.12.3"
