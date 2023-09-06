@@ -11,7 +11,8 @@
               </v-row>
 
               <div v-for="(col, t) in cols.subjects" :key="t">
-                <li class="li-subject py-1" @click="showModal(col)">{{ col.subject_name }}</li>
+                <SyllabusCard class="ma-2" :syllabus="col" v-show="!listView"/>
+                <li class="li-subject py-1" @click="showModal(col)" v-show="listView">{{ col.subject_name }}</li>
               </div>
 
             </v-container>
@@ -34,8 +35,8 @@
                     <v-col class="text-day-period my-3">{{order2str(i, dayDict[day])}}</v-col>
                   </v-row>
                   <div v-for="(col, t) in row[dayDict[day]].subjects" :key="t">
-                    <!-- <SyllabusCard syllabus="ma-2" :syllabus="col" /> -->
-                    <li class="li-subject py-1" @click="showModal(col)">{{ col.subject_name }}</li>
+                    <SyllabusCard class="ma-2" :syllabus="col" v-show="!listView"/>
+                    <li class="li-subject py-1" @click="showModal(col)" v-show="listView">{{ col.subject_name }}</li>
                   </div>
                 </v-container>
               </v-card>
@@ -83,7 +84,7 @@
         </v-tabs>
 <!--      </v-card>-->
 <!--    </v-footer>-->
-    <modal name="syllabus-card-modal" :adaptive="true">
+    <modal name="syllabus-card-modal" :adaptive="true" class="card-modal">
       <SyllabusCardModal :syllabus="selectedSubject" />
     </modal>
   </div>
@@ -147,6 +148,10 @@ export default class Index extends Vue{
   tab = this.days[0];
 
   selectedSubject: Subject = {} as Subject;
+
+  get listView() {
+    return this.$store.state.listView;
+  }
 
   controlMenu(newVal:boolean){
     this.showMenu = newVal;
@@ -316,6 +321,7 @@ export default class Index extends Vue{
   list-style: none;
   border-bottom: 1px solid #383838;
   cursor: pointer;
+  font-size: 0.9rem;
 }
 .li-subject:hover {
   opacity: 0.8;
@@ -323,6 +329,9 @@ export default class Index extends Vue{
 .text-day-period {
   font-size: 1.2em;
   font-weight: bold;
+}
+.card-modal >>> .vm--modal  {
+  background: #121212; /* 微妙にモーダルの四隅が白抜きされてしまうので色を合わせて修正 */
 }
 
 </style>

@@ -38,6 +38,7 @@ export default class DefaultLayout extends Vue{
   listView = false;
   @Watch('listView')
   onSwitchValueChange() {
+    this.$store.commit('setListView', this.listView);
   }
 }
 </script>
