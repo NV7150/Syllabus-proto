@@ -1,9 +1,8 @@
 export const state = () => ({
-  switchValue: false
+  listView: false
 });
-
 export const mutations = {
-  SET_SWITCH(state, value) {
-    state.switchValue = value;
+  setListView(state, value) {
+    state.listView = value;
   }
 };

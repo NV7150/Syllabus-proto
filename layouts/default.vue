@@ -6,7 +6,7 @@
       hide-on-scroll
     >
       <v-list-item-title>科目検索.死ぬ.com</v-list-item-title>
-      <v-switch v-model="switchValue" label="リスト表示" class="switch-list" inset hide-details></v-switch>
+      <v-switch v-model="listView" label="リスト表示" class="switch-list" inset hide-details></v-switch>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -27,28 +27,18 @@
 </template>
 
 <script lang="ts">
-import { mapState, mapMutations } from 'vuex';
-import {Component, Vue} from "nuxt-property-decorator";
+import { mapMutations } from "vuex";
+import { Component, Vue, Watch } from "nuxt-property-decorator";
 import SearchNav from "~/components/Navigation/SearchNav.vue";
+
 @Component({
-  components: {SearchNav},
-  computed: {
-    ...mapState(['switchValue'])
-  },
-  methods: {
-    ...mapMutations(['SET_SWITCH'])
-  },
-  watch: {
-    switchValue: {
-      handler(newValue: boolean) {
-        this.SET_SWITCH(newValue);
-      },
-      immediate: true
-    }
-  }
+  components: {SearchNav}
 })
 export default class DefaultLayout extends Vue{
-  SET_SWITCH!: (value: boolean) => void;
+  listView = false;
+  @Watch('listView')
+  onSwitchValueChange() {
+  }
 }
 </script>
 
